@@ -35,5 +35,3 @@ export const calendarSlice = createSlice({
     }
   }
 });
-
-// export const { increment } = calendarSlice.actions;

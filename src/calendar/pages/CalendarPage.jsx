@@ -29,7 +29,7 @@ export const CalendarPage = () => {
   const onView = view => localStorage.setItem('defaultView', view);
 
   return (
-    <>
+    <div className="animate__animated animate__fadeIn animate__faster">
       <Navbar />
 
       <Calendar
@@ -52,6 +52,6 @@ export const CalendarPage = () => {
 
       <CalendarModal />
       <FabAddNew />
-    </>
+    </div>
   );
 };

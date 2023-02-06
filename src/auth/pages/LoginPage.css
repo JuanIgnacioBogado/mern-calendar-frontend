@@ -36,7 +36,7 @@
   color: #fff;
   background-color: #0062cc;
 }
-.login-form-1 .btnSubmit:hover {
+.login-form-1 .btnSubmit:hover:not(:disabled) {
   color: #0062cc;
   background-color: #fff;
   border-color: #0062cc;
@@ -45,11 +45,18 @@
   background-color: #fff;
   color: #0062cc;
 }
-.login-form-2 .btnSubmit:hover {
+.login-form-2 .btnSubmit:hover:not(:disabled) {
   background-color: #0062cc;
   color: #fff;
   border-color: #fff;
 }
+
+.btnSubmit:disabled {
+  background-color: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+
 .login-form-2 .ForgetPwd {
   color: #fff;
   font-weight: 600;

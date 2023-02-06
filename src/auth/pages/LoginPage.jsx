@@ -1,28 +1,25 @@
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+
+import { useAuthStore } from '../../hooks';
+import { Login, Register } from '../';
+
 import './LoginPage.css';
 
 export const LoginPage = () => {
-  return (
-    <div className="container login-container">
-      <div className="row">
-        <div className="col-md-6 login-form-1">
-          <h3>Ingreso</h3>
-          <form className="d-flex flex-column gap-3">
-            <input type="text" className="form-control" placeholder="Correo" />
-            <input type="password" autoComplete="off" className="form-control" placeholder="Contraseña" />
-            <input type="submit" className="btnSubmit" value="Login" />
-          </form>
-        </div>
+  const { errorMessage } = useAuthStore();
 
-        <div className="col-md-6 login-form-2">
-          <h3>Registro</h3>
-          <form className="d-flex flex-column gap-3">
-            <input type="text" className="form-control" placeholder="Nombre" />
-            <input type="email" className="form-control" placeholder="Correo" />
-            <input type="password" autoComplete="off" className="form-control" placeholder="Contraseña" />
-            <input type="password" autoComplete="off" className="form-control" placeholder="Repita la contraseña" />
-            <input type="submit" className="btnSubmit" value="Crear cuenta" />
-          </form>
-        </div>
+  useEffect(() => {
+    if (errorMessage) {
+      Swal.fire('Error en la autenticación', errorMessage, 'error');
+    }
+  }, [errorMessage]);
+
+  return (
+    <div className="container login-container animate__animated animate__fadeIn animate__faster">
+      <div className="row">
+        <Login />
+        <Register />
       </div>
     </div>
   );
