@@ -1,26 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import addHours from 'date-fns/addHours';
-
-const tempEvent = {
-  _id: crypto.randomUUID(),
-  title: 'Cumple del jefe',
-  notes: 'hay que comprar la torta',
-  start: new Date(),
-  end: addHours(new Date(), 2),
-  bgColor: '#fafafa',
-  user: {
-    _id: '123',
-    name: 'Nacho'
-  }
-};
 
 export const calendarSlice = createSlice({
   name: 'calendar',
   initialState: {
-    events: [tempEvent],
+    events: [],
     activeEvent: null
   },
   reducers: {
+    setEvents: (state, { payload }) => {
+      state.events = payload;
+    },
     setActiveEvent: (state, { payload }) => {
       state.activeEvent = payload;
     },
@@ -28,10 +17,14 @@ export const calendarSlice = createSlice({
       state.events.push(payload);
     },
     updateEvent: (state, { payload }) => {
-      state.events = state.events.map(event => (event._id === payload._id ? payload : event));
+      state.events = state.events.map(event => (event.id === payload.id ? payload : event));
     },
     deleteEvent: (state, { payload }) => {
-      state.events = state.events.filter(({ _id }) => _id !== payload);
+      state.events = state.events.filter(({ id }) => id !== payload);
+    },
+    clearCalendar: state => {
+      state.events = [];
+      state.activeEvent = null;
     }
   }
 });

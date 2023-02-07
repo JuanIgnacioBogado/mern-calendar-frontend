@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { calendarApi } from '../api';
-import { useSelectorStore } from './useSelectorStore';
+import { useSelectorStore } from './';
 
 export const useAuthStore = () => {
-  const { auth, onChecking, onLogin, onLogout, clearErrorMessage } = useSelectorStore();
+  const { auth, onChecking, onLogin, onLogout, clearErrorMessage, clearCalendar } = useSelectorStore();
 
   const showErrorMessage = (data = 'Credenciales Incorrectas') => {
     if (data?.errors) {
@@ -62,6 +62,7 @@ export const useAuthStore = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('token-init-date');
     onLogout();
+    clearCalendar();
   };
 
   const isAuthenticated = useMemo(() => auth.status === 'authenticated', [auth.status]);

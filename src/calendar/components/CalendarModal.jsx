@@ -10,7 +10,7 @@ import addHours from 'date-fns/addHours';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import { useSelectorStore } from '../../hooks';
+import { useCalendarStore } from '../../hooks';
 
 registerLocale('es', es);
 
@@ -41,14 +41,15 @@ const initialFormEvent = {
 
 export const CalendarModal = () => {
   const {
-    ui: { isDateModalOpen },
-    calendar: { activeEvent },
+    activeEvent,
+    isDateModalOpen,
+    isLoading,
     onCloseDateModal,
     setActiveEvent,
-    addNewEvent,
-    updateEvent,
-    deleteEvent
-  } = useSelectorStore();
+    startDeleteEvent,
+    startNewEvent,
+    startUpdateEvent
+  } = useCalendarStore();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formValues, setFormValues] = useState(initialFormEvent);
@@ -72,7 +73,7 @@ export const CalendarModal = () => {
     }, 200);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setFormSubmitted(true);
 
@@ -83,10 +84,10 @@ export const CalendarModal = () => {
     }
     if (!formValues.title.trim()) return;
 
-    if (activeEvent?._id) {
-      updateEvent(formValues);
+    if (activeEvent?.id) {
+      await startUpdateEvent(formValues);
     } else {
-      addNewEvent({ ...formValues, _id: crypto.randomUUID() });
+      await startNewEvent(formValues);
     }
     onCloseModal();
   };
@@ -107,7 +108,7 @@ export const CalendarModal = () => {
       style={customStyles}
     >
       <div className="container">
-        <h1>{activeEvent?._id ? 'Actualizar evento' : 'Nuevo Evento'}</h1>
+        <h1>{activeEvent?.id ? 'Actualizar evento' : 'Nuevo Evento'}</h1>
         <hr />
 
         <form className="d-flex flex-column gap-3" onSubmit={handleSubmit}>
@@ -172,7 +173,7 @@ export const CalendarModal = () => {
           </div>
 
           <div className="d-flex gap-2 ">
-            <button type="submit" className="btn btn-outline-primary w-100">
+            <button type="submit" className="btn btn-outline-primary w-100" disabled={isLoading}>
               <i className="fa fa-save"></i>
               <span> Guardar</span>
             </button>
@@ -181,8 +182,9 @@ export const CalendarModal = () => {
               <button
                 type="button"
                 className="btn btn-outline-danger w-100"
+                disabled={isLoading}
                 onClick={() => {
-                  deleteEvent(activeEvent?._id);
+                  startDeleteEvent(activeEvent?.id);
                   onCloseModal();
                 }}
               >

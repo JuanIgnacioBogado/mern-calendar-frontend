@@ -1,13 +1,10 @@
-import { useSelectorStore } from '../../hooks';
+import { useCalendarStore } from '../../hooks';
 
 export const FabAddNew = () => {
-  const {
-    ui: { isDateModalOpen },
-    onOpenDateModal
-  } = useSelectorStore();
+  const { isDateModalOpen, onOpenDateModal } = useCalendarStore();
 
   return (
-    <button className="btn btn-primary fab" disabled={isDateModalOpen} onClick={onOpenDateModal}>
+    <button className="btn btn-primary fab" disabled={isDateModalOpen} onClick={() => onOpenDateModal()}>
       <i className="fas fa-plus"></i>
     </button>
   );
