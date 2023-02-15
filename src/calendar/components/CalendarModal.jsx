@@ -25,8 +25,6 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement('#root');
-
 const initialFormEvent = {
   title: '',
   notes: '',
@@ -106,6 +104,8 @@ export const CalendarModal = () => {
       onRequestClose={onCloseModal}
       overlayClassName="modal-fondo"
       style={customStyles}
+      appElement={document.getElementById('root')}
+      ariaHideApp={import.meta.env.NODE_ENV !== 'test'}
     >
       <div className="container">
         <h1>{activeEvent?.id ? 'Actualizar evento' : 'Nuevo Evento'}</h1>
