@@ -20,8 +20,7 @@ export const useAuthStore = () => {
     setTimeout(() => clearErrorMessage(), 10);
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const setUserAndToken = ({ token, ok, ...user }) => {
+  const setUserAndToken = ({ token, ok: _ok, ...user }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('token-init-date', new Date().getTime());
     onLogin(user);
@@ -81,7 +80,7 @@ export const useAuthStore = () => {
     isChecking,
     showErrorMessage,
     startLogin,
-    startRegister,
-    startLogout
+    startLogout,
+    startRegister
   };
 };

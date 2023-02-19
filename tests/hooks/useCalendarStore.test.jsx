@@ -18,7 +18,7 @@ const getMockStore = (initialState = {}) =>
   });
 
 describe('useCalendarStore', () => {
-  test('should first', () => {
+  test('should to show initial state', () => {
     const store = getMockStore({ isDateModalOpen: false });
 
     const {

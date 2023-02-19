@@ -84,8 +84,8 @@ export const useCalendarStore = () => {
   return {
     ...calendar,
     ...ui,
-    onOpenDateModal,
     onCloseDateModal,
+    onOpenDateModal,
     setActiveEvent,
     startDeleteEvent,
     startGetEvents,
