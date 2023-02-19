@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
+
 import { calendarApi } from '../api';
+
 import { useSelectorStore } from './';
 
 export const useAuthStore = () => {
@@ -18,6 +20,7 @@ export const useAuthStore = () => {
     setTimeout(() => clearErrorMessage(), 10);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const setUserAndToken = ({ token, ok, ...user }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('token-init-date', new Date().getTime());
@@ -28,6 +31,7 @@ export const useAuthStore = () => {
     onChecking();
     try {
       const { data } = await calendarApi.post('/auth', formState);
+
       setUserAndToken(data);
     } catch ({ response: { data } }) {
       console.log('data', data?.msg || data?.errors);
@@ -39,6 +43,7 @@ export const useAuthStore = () => {
     onChecking();
     try {
       const { data } = await calendarApi.post('/auth/new', formState);
+
       setUserAndToken(data);
     } catch ({ response: { data } }) {
       showErrorMessage(data);
@@ -51,6 +56,7 @@ export const useAuthStore = () => {
     onChecking();
     try {
       const { data } = await calendarApi.get('/auth/renew');
+
       setUserAndToken(data);
     } catch ({ response: { data } }) {
       showErrorMessage(data);

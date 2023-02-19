@@ -18,6 +18,7 @@ jest.mock('../../src/hooks/useCalendarStore');
 describe('CalendarModal', () => {
   const mockStartDeleteEvent = jest.fn();
   const mockOnCloseDateModal = jest.fn();
+
   useCalendarStore.mockReturnValue({
     ...calendarWithActiveEventState,
     isDateModalOpen: true,
@@ -37,6 +38,7 @@ describe('CalendarModal', () => {
     );
 
     const btnDelete = screen.getByRole('button', { name: /borrar/i });
+
     fireEvent.click(btnDelete);
 
     expect(mockStartDeleteEvent).toBeCalledWith(events[0].id);

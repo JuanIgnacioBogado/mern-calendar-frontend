@@ -5,7 +5,7 @@ export const FabAddNew = () => {
 
   return (
     <button className="btn btn-primary fab" disabled={isDateModalOpen} onClick={() => onOpenDateModal()}>
-      <i className="fas fa-plus"></i>
+      <i className="fas fa-plus" />
     </button>
   );
 };

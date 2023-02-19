@@ -23,23 +23,23 @@ export const Login = () => {
       <h3>Ingreso</h3>
       <form className="d-flex flex-column gap-3" onSubmit={handleSubmit}>
         <input
-          onChange={handleInputChange}
-          value={email}
-          name="email"
-          type="email"
           className="form-control"
+          name="email"
           placeholder="Correo"
+          type="email"
+          value={email}
+          onChange={handleInputChange}
         />
         <input
-          onChange={handleInputChange}
-          value={password}
-          name="password"
-          type="password"
           autoComplete="off"
           className="form-control"
+          name="password"
           placeholder="Contraseña"
+          type="password"
+          value={password}
+          onChange={handleInputChange}
         />
-        <input type="submit" className="btnSubmit" value="Login" disabled={isChecking} />
+        <input className="btnSubmit" disabled={isChecking} type="submit" value="Login" />
       </form>
     </div>
   );

@@ -10,6 +10,7 @@ export const AppRouter = () => {
 
   useEffect(() => {
     checkAuthToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isChecking) return <Spinner />;
@@ -18,13 +19,13 @@ export const AppRouter = () => {
     <Routes>
       {!isAuthenticated ? (
         <>
-          <Route path="/auth/*" element={<LoginPage />} />
-          <Route path="*" element={<Navigate to="/auth/login" replace />} />
+          <Route element={<LoginPage />} path="/auth/*" />
+          <Route element={<Navigate replace to="/auth/login" />} path="*" />
         </>
       ) : (
         <>
-          <Route path="/" element={<CalendarPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route element={<CalendarPage />} path="/" />
+          <Route element={<Navigate replace to="/" />} path="*" />
         </>
       )}
     </Routes>

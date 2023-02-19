@@ -28,40 +28,40 @@ export const Register = () => {
       <h3>Registro</h3>
       <form className="d-flex flex-column gap-3" onSubmit={handleSubmit}>
         <input
+          className="form-control"
           name="name"
+          placeholder="Nombre"
+          type="text"
           value={name}
           onChange={handleInputChange}
-          type="text"
-          className="form-control"
-          placeholder="Nombre"
         />
         <input
+          className="form-control"
           name="email"
+          placeholder="Correo"
+          type="email"
           value={email}
           onChange={handleInputChange}
-          type="email"
-          className="form-control"
-          placeholder="Correo"
         />
         <input
+          autoComplete="off"
+          className="form-control"
           name="password"
+          placeholder="Contraseña"
+          type="password"
           value={password}
           onChange={handleInputChange}
-          type="password"
-          autoComplete="off"
-          className="form-control"
-          placeholder="Contraseña"
         />
         <input
-          name="password2"
-          value={password2}
-          onChange={handleInputChange}
-          type="password"
           autoComplete="off"
           className="form-control"
+          name="password2"
           placeholder="Repita la contraseña"
+          type="password"
+          value={password2}
+          onChange={handleInputChange}
         />
-        <input type="submit" className="btnSubmit" value="Crear cuenta" disabled={isChecking} />
+        <input className="btnSubmit" disabled={isChecking} type="submit" value="Crear cuenta" />
       </form>
     </div>
   );

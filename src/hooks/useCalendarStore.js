@@ -1,7 +1,8 @@
-import { calendarApi } from '../api';
-import { useSelectorStore } from './';
-
 import parseISO from 'date-fns/parseISO';
+
+import { calendarApi } from '../api';
+
+import { useSelectorStore } from './';
 
 const parseEvent = ({ start, end, ...event }) => ({ start: parseISO(start), end: parseISO(end), ...event });
 const parseUser = (_id, name) => ({ user: { _id, name } });
@@ -27,6 +28,7 @@ export const useCalendarStore = () => {
     setIsLoading(true);
     try {
       const { events } = (await calendarApi.get('/events')).data;
+
       setEvents(events.map(parseEvent));
     } catch (error) {
       console.log('error', error);
@@ -39,6 +41,7 @@ export const useCalendarStore = () => {
     setIsLoading(true);
     try {
       const { event } = (await calendarApi.post('/events', newEvent)).data;
+
       addNewEvent({
         ...parseEvent(event),
         ...parseUser(uid, name)
@@ -54,6 +57,7 @@ export const useCalendarStore = () => {
     setIsLoading(true);
     try {
       const { event } = (await calendarApi.put(`/events/${id}`, updatedEvent)).data;
+
       updateEvent({
         ...parseEvent(event),
         ...parseUser(uid, name)

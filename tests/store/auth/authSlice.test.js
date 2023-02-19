@@ -16,6 +16,7 @@ describe('authSlice', () => {
 
   test('should make a login', () => {
     let state = authSlice.reducer(initialAuthState, onLogin(testUserCredentials));
+
     expect(state).toEqual({
       ...authenticatedState,
       user: testUserCredentials
@@ -24,12 +25,14 @@ describe('authSlice', () => {
 
   test('should make the logout', () => {
     let state = authSlice.reducer(authenticatedState, onLogout());
+
     expect(state).toEqual(notAuthenticatedState);
   });
 
   test('should make the logout with errorMessage', () => {
     const errorMessage = 'error in login';
     let state = authSlice.reducer(initialAuthState, onLogout(errorMessage));
+
     expect(state).toEqual({
       ...notAuthenticatedState,
       errorMessage
@@ -38,12 +41,14 @@ describe('authSlice', () => {
 
   test('should make the checking', () => {
     let state = authSlice.reducer(initialAuthState, onChecking());
+
     expect(state).toEqual(checkingState);
   });
 
   test('should to clear errorMessage', () => {
     const errorMessage = 'error in login';
     let state = authSlice.reducer(initialAuthState, onLogout(errorMessage));
+
     state = authSlice.reducer(initialAuthState, clearErrorMessage());
 
     expect(state.errorMessage).toBeNull();

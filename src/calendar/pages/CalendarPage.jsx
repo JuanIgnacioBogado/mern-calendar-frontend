@@ -3,9 +3,7 @@ import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { getMessagesES, localizer } from '../../helpers';
-
 import { CalendarEvent, CalendarModal, FabAddNew, Navbar } from '../';
-
 import { useCalendarStore } from '../../hooks';
 
 const defaultView = localStorage.getItem('defaultView') || 'week';
@@ -13,7 +11,7 @@ const defaultView = localStorage.getItem('defaultView') || 'week';
 export const CalendarPage = () => {
   const { onOpenDateModal, setActiveEvent, events, startGetEvents } = useCalendarStore();
 
-  const eventPropGetter = (event, start, end, isSelected) => ({
+  const eventPropGetter = () => ({
     style: {
       backgroundColor: '#347cf7',
       borderRadius: 0,
@@ -26,6 +24,7 @@ export const CalendarPage = () => {
 
   useEffect(() => {
     startGetEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -40,14 +39,14 @@ export const CalendarPage = () => {
           localizer,
           onView
         }}
+        components={{ event: CalendarEvent }}
         culture="es"
-        startAccessor="start"
         endAccessor="end"
+        messages={getMessagesES()}
+        startAccessor="start"
+        style={{ height: 'calc(100vh - 80px)' }}
         onDoubleClickEvent={() => onOpenDateModal()}
         onSelectEvent={setActiveEvent}
-        style={{ height: 'calc(100vh - 80px)' }}
-        messages={getMessagesES()}
-        components={{ event: CalendarEvent }}
       />
 
       <CalendarModal />

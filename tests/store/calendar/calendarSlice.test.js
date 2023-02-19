@@ -6,11 +6,13 @@ const { setActiveEvent, addNewEvent, updateEvent, deleteEvent, setEvents, clearC
 describe('calendarSlice', () => {
   test('should to return default state', () => {
     const state = calendarSlice.getInitialState();
+
     expect(state).toEqual(initialCalendarState);
   });
 
   test('should to activate event - setActiveEvent', () => {
     const state = calendarSlice.reducer(calendarWithEventsState, setActiveEvent(events[0]));
+
     expect(state).toEqual(calendarWithActiveEventState);
   });
 
@@ -24,6 +26,7 @@ describe('calendarSlice', () => {
     };
 
     const state = calendarSlice.reducer(initialCalendarState, addNewEvent(newEvent));
+
     expect(state.events).toEqual([newEvent]);
   });
 
@@ -37,21 +40,25 @@ describe('calendarSlice', () => {
     };
 
     const state = calendarSlice.reducer(calendarWithActiveEventState, updateEvent(eventUpdated));
+
     expect(state.events).toContain(eventUpdated);
   });
 
   test('should to delete the active event - deleteEvent', () => {
     const state = calendarSlice.reducer(calendarWithActiveEventState, deleteEvent('1'));
+
     expect(state.events).not.toContain(events[0]);
   });
 
   test('should to load the events - setEvents', () => {
     const state = calendarSlice.reducer(initialCalendarState, setEvents(events));
+
     expect(state).toEqual(calendarWithEventsState);
   });
 
   test('should to clear the events in the calendar - clearCalendar', () => {
     const state = calendarSlice.reducer(calendarWithActiveEventState, clearCalendar());
+
     expect(state).toEqual(initialCalendarState);
   });
 });

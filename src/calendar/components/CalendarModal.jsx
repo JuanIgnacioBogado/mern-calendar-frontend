@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import differenceInSeconds from 'date-fns/differenceInSeconds';
 import Swal from 'sweetalert2';
-
 import es from 'date-fns/locale/es';
 import addHours from 'date-fns/addHours';
 
@@ -54,6 +53,7 @@ export const CalendarModal = () => {
 
   const isValid = useMemo(() => {
     if (!formSubmitted) return '';
+
     return formValues?.title.trim() ? 'is-valid' : 'is-invalid';
   }, [formValues?.title, formSubmitted]);
 
@@ -98,14 +98,14 @@ export const CalendarModal = () => {
 
   return (
     <Modal
+      appElement={document.getElementById('root')}
+      ariaHideApp={import.meta.env.NODE_ENV !== 'test'}
       className="modal"
       closeTimeoutMS={200}
       isOpen={isDateModalOpen}
-      onRequestClose={onCloseModal}
       overlayClassName="modal-fondo"
       style={customStyles}
-      appElement={document.getElementById('root')}
-      ariaHideApp={import.meta.env.NODE_ENV !== 'test'}
+      onRequestClose={onCloseModal}
     >
       <div className="container">
         <h1>{activeEvent?.id ? 'Actualizar evento' : 'Nuevo Evento'}</h1>
@@ -115,27 +115,27 @@ export const CalendarModal = () => {
           <div>
             <label>Fecha y hora inicio</label>
             <DatePicker
+              showTimeSelect
+              className="form-control"
               dateFormat="Pp"
               locale="es"
               selected={formValues?.start}
-              onChange={e => handleDateChange('start', e)}
-              showTimeSelect
               timeCaption="Hora"
-              className="form-control"
+              onChange={e => handleDateChange('start', e)}
             />
           </div>
 
           <div>
             <label>Fecha y hora fin</label>
             <DatePicker
+              showTimeSelect
+              className="form-control"
               dateFormat="Pp"
               locale="es"
               minDate={formValues?.start}
               selected={formValues?.end}
-              onChange={e => handleDateChange('end', e)}
-              showTimeSelect
               timeCaption="Hora"
-              className="form-control"
+              onChange={e => handleDateChange('end', e)}
             />
           </div>
 
@@ -144,51 +144,51 @@ export const CalendarModal = () => {
           <div>
             <label>Titulo y notas</label>
             <input
-              type="text"
+              autoComplete="off"
               className={`form-control ${isValid}`}
-              placeholder="Título del evento"
               name="title"
+              placeholder="Título del evento"
+              type="text"
               value={formValues?.title}
               onChange={handleChangeFormValues}
-              autoComplete="off"
             />
-            <small id="emailHelp" className="form-text text-muted">
+            <small className="form-text text-muted" id="emailHelp">
               Una descripción corta
             </small>
           </div>
 
           <div>
             <textarea
-              type="text"
               className="form-control"
+              name="notes"
               placeholder="Notas"
               rows="5"
-              name="notes"
+              type="text"
               value={formValues?.notes}
               onChange={handleChangeFormValues}
-            ></textarea>
-            <small id="emailHelp" className="form-text text-muted">
+            />
+            <small className="form-text text-muted" id="emailHelp">
               Información adicional
             </small>
           </div>
 
           <div className="d-flex gap-2 ">
-            <button type="submit" className="btn btn-outline-primary w-100" disabled={isLoading}>
-              <i className="fa fa-save"></i>
+            <button className="btn btn-outline-primary w-100" disabled={isLoading} type="submit">
+              <i className="fa fa-save" />
               <span> Guardar</span>
             </button>
 
             {!!activeEvent && (
               <button
-                type="button"
                 className="btn btn-outline-danger w-100"
                 disabled={isLoading}
+                type="button"
                 onClick={() => {
                   startDeleteEvent(activeEvent?.id);
                   onCloseModal();
                 }}
               >
-                <i className="fa fa-trash"></i>
+                <i className="fa fa-trash" />
                 <span> Borrar</span>
               </button>
             )}
