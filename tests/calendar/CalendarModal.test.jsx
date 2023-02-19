@@ -1,17 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
 
 import { CalendarModal } from '../../src/calendar/components/CalendarModal';
-import { uiSlice } from '../../src/store';
 import { calendarWithActiveEventState, events } from '../fixtures/calendarStates';
 import { useCalendarStore } from '../../src/hooks/useCalendarStore';
-
-const store = configureStore({
-  reducer: {
-    ui: uiSlice.reducer
-  }
-});
 
 jest.mock('../../src/hooks/useCalendarStore');
 
@@ -19,25 +10,23 @@ describe('CalendarModal', () => {
   const mockStartDeleteEvent = jest.fn();
   const mockOnCloseDateModal = jest.fn();
 
-  useCalendarStore.mockReturnValue({
-    ...calendarWithActiveEventState,
-    isDateModalOpen: true,
-    startDeleteEvent: mockStartDeleteEvent,
-    onCloseDateModal: mockOnCloseDateModal
-  });
+  beforeEach(() => jest.clearAllMocks());
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  test('should to show the component correctly and to do delete event', () => {
+    useCalendarStore.mockReturnValue({
+      ...calendarWithActiveEventState,
+      isDateModalOpen: true,
+      startDeleteEvent: mockStartDeleteEvent,
+      onCloseDateModal: mockOnCloseDateModal
+    });
 
-  test('should to show the component correctly', () => {
-    render(
-      <Provider store={store}>
-        <CalendarModal />
-      </Provider>
-    );
+    render(<CalendarModal />);
 
     const btnDelete = screen.getByRole('button', { name: /borrar/i });
+
+    expect(btnDelete.classList).toContain('btn');
+    expect(btnDelete.classList).toContain('btn-outline-danger');
+    expect(btnDelete.classList).toContain('w-100');
 
     fireEvent.click(btnDelete);
 

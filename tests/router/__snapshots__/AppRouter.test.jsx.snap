@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppRouter should to show login screen if are not authenticated 1`] = `
+<div>
+  <div
+    class="container login-container animate__animated animate__fadeIn animate__faster"
+  >
+    <div
+      class="row"
+    >
+      <div
+        class="col-md-6 login-form-1"
+      >
+        <h3>
+          Ingreso
+        </h3>
+        <form
+          class="d-flex flex-column gap-3"
+        >
+          <input
+            class="form-control"
+            name="email"
+            placeholder="Correo"
+            type="email"
+            value=""
+          />
+          <input
+            autocomplete="off"
+            class="form-control"
+            name="password"
+            placeholder="Contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            class="btnSubmit"
+            type="submit"
+            value="Login"
+          />
+        </form>
+      </div>
+      <div
+        class="col-md-6 login-form-2"
+      >
+        <h3>
+          Registro
+        </h3>
+        <form
+          class="d-flex flex-column gap-3"
+        >
+          <input
+            class="form-control"
+            name="name"
+            placeholder="Nombre"
+            type="text"
+            value=""
+          />
+          <input
+            class="form-control"
+            name="email"
+            placeholder="Correo"
+            type="email"
+            value=""
+          />
+          <input
+            autocomplete="off"
+            class="form-control"
+            name="password"
+            placeholder="Contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            autocomplete="off"
+            class="form-control"
+            name="password2"
+            placeholder="Repita la contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            class="btnSubmit"
+            type="submit"
+            value="Crear cuenta"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
